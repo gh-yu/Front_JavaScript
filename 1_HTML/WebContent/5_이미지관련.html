@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>이미지 관련 태그 : img</h1>
+	<p>src속성에 경로를 설정하여 이미지 파일을 불러옴</p>
+	<img src="sample/image/river1.PNG" alt="강 사진"> <!-- 인라인 요소 -->
+	
+	<h2>자주 사용하는 속성</h2>
+	<h3>alt속성</h3>
+	<p>
+		사진의 경로가 잘못 되었거나 이미지를 제대로 표시할 수 없을 때 대체 텍스트의 용도로 사용<br>
+		화면 낭독기를 사용할 때 이미지는 읽을 수가 없기 때문에 대체되는 텍스트가 필요하여 alt를 사용해 읽음
+	</p>
+	<img src="sale/image/river1.PNG" alt="강 사진">
+	
+	<h3>width와 height속성</h3>
+	<h4>고정 크기 단위 : 화면의 사이즈가 바뀌어도 크기가 변하지 않음</h4>
+	<img src="sample/image/flower1.PNG" width="200px" height="150px">
+	<img src="sample/image/flower2.PNG" width="200px" height="150px">
+	<img src="sample/image/flower3.PNG" width="200px" height="150px">
+	<img src="sample/image/flower4.PNG" width="200px" height="150px">
+	<img src="sample/image/flower5.PNG" width="200px" height="150px">
+	<h4>가변 크기 단위 : 화면 사이즈/기준 사이즈에 따라 크기 변경</h4>
+	<!-- 화면의 15%를 사용하겠다는 뜻. 화면의 브라우저를 늘리면 사진의 크기도 커지고, 줄이면 사진의 크기도 줄어듬 -->
+	<img src="sample/image/flower1.PNG" width="15%" height="150px">
+	<img src="sample/image/flower2.PNG" width="15%" height="150px">
+	<img src="sample/image/flower3.PNG" width="15%" height="150px">
+	<img src="sample/image/flower4.PNG" width="15%" height="150px">
+	<img src="sample/image/flower5.PNG" width="15%" height="150px">
+	
+	<hr>
+	
+	<h4>이미지 구역을 2개로 나누어 각각 링크 설정</h4>
+	<img src="sample/image/river1.PNG" usemap="#myImageMap">
+	<map name="myImageMap"> 
+		<area shape="rect" coords="0, 0, 300, 500" href="http://www.naver.com" target="_self">
+		<area shape="rect" coords="300, 0, 600, 500" href="http://www.google.com" target="_blank">
+		<!-- coords 영역의 위치, x의 위치 300부터 시작하여 600까지
+			 사진의 오른쪽을 누르면 네이버, 왼쪽을 누르면 구글로 넘어감
+			 target="_self"는 현재 창에서 열리고, "_blank"는 새로운 창에서 열림 -->
+	</map>
+</body>
+</html>
