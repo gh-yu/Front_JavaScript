@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	#area{border: 1px solid red; height: 150px;}
+</style>
+</head>
+<body>
+	<h3>Practice1</h3>
+	<form>
+		<fieldset>
+			<lengend>카테고리</lengend>
+			<table>
+				<tr>
+					<td rowspan = "2" style="vertical-align: top">
+					<input type="checkbox" id="selAll" onclick="selectAll();">전체선택</td>
+					<td><input type="checkbox" value="종합" name="category" onclick="checkOne();">종합</td>
+					<td><input type="checkbox" value="소설" name="category" onclick="checkOne();">소설</td>
+					<td><input type="checkbox" value="시/에세이" name="category" onclick="checkOne();">시/에세이</td>
+					<td><input type="checkbox" value="경제/경영" name="category" onclick="checkOne();">경제/경영</td>
+					<td><input type="checkbox" value="자기계발" name="category" onclick="checkOne();">자기계발</td>
+					<td><input type="checkbox" value="아동" name="category" onclick="checkOne();">아동</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" value="여행" name="category" onclick="checkOne();">여행</td>
+					<td><input type="checkbox" value="계획" name="category" onclick="checkOne();">과학</td>
+					<td><input type="checkbox" value="역사/문화" name="category" onclick="checkOne();">역사/문화</td>
+					<td><input type="checkbox" value="외국어" name="category" onclick="checkOne();">외국어</td>
+					<td><input type="checkbox" value="컴퓨터" name="category" onclick="checkOne();">컴퓨터</td>
+					<td><input type="checkbox" value="만화" name="category" onclick="checkOne();">만화</td>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+	<br>
+	
+	<button onclick="selectCategory();">카테고리 선택</button>
+	<div id="area"></div>
+	<script>
+		function selectAll(){
+			var selAll = document.getElementById('selAll');
+			var category = document.getElementsByName('category');
+				
+			if (selAll.checked == true) {
+				for(var i = 0; i < category.length; i++) {
+					category[i].checked = true;
+				} 
+			} else {
+				for(var i = 0; i < category.length; i++) {
+					category[i].checked = false;
+				} 
+			}
+		}
+		
+		function checkOne(){
+			var selAll = document.getElementById('selAll');
+			var category = document.getElementsByName('category');
+			
+			var checkAll = true;
+			for (var i = 0; i < category.length; i++) {
+				if (category[i].checked == false) {
+					checkAll = false;
+				}
+			}
+			
+			if (checkAll == true) {
+				selAll.checked = true;
+			} else {
+				selAll.checked = false;
+			}
+			
+		}
+		
+		function selectCategory(){
+			var category = document.getElementsByName('category');
+			var div = document.getElementById('area');
+			
+			var checkItem = ''; 
+			for(var i=0; i < category.length; i++) {
+				if (category[i].checked == true) {
+					checkItem += category[i].value + " ";
+				}
+			}
+			div.innerHTML = checkItem;
+		}
+	</script>
+</body>
+</html>
