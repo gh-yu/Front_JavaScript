@@ -2,9 +2,66 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Practice2_simpleCalculation</title>
+<style>
+	input[type=text]{width: 100px;}
+</style>
 </head>
 <body>
-
+	<h2>Practice2</h2>
+	<form>
+		<input type="text" class="num" id="num1">
+		<select id="operator">
+			<option class="operator" value="+">+</option>
+			<option class="operator" value="-">-</option>
+			<option class="operator" value="*">*</option>
+			<option class="operator" value="/">/</option>
+			<option class="operator" value="%">%</option>
+		</select>
+		<input type="text" class="num" id="num2" name="num11">
+		<input type="button" value="=" onclick="calculate();">
+		<input type="text" id="result" readonly>
+	</form>
+	<script>
+		function calculate() {
+ 			var num1 = Number(document.getElementById('num1').value);
+			var num2 = Number(document.getElementById('num2').value);
+			var operator = document.getElementById('operator').value;
+ 			var result = document.getElementById('result');
+			
+			console.log(typeof num1);
+			console.log(typeof num2);
+ 			console.log(typeof operator);
+		
+			var res = 0;
+ 			switch (operator) {
+			case '+' :
+				res = num1 + num2;
+				break;
+			case '-' :
+				res = num1 - num2;
+				break;
+			case '*' :
+				res = num1 * num2;
+				break;
+			case '/' :
+				res = num1 / num2;
+				break;
+			case '%' :
+				res = num1 % num2;			
+			}
+ 			if (!(isNaN(res) || res == Infinity)) {
+ 				result.style.backgroundColor = '';
+ 				result.style.color = '';
+ 				result.style.borderColor = '';
+ 				result.value = res; // input태그에는 innerHTML 안 먹힘, value 값을 변경하는 식으로 하기
+ 			} else {
+ 				result.style.backgroundColor = 'red';
+ 				result.style.color = 'white';
+ 				result.style.borderColor = 'white';
+ 				result.value= '연산불가';
+ 			}
+		}
+	</script>
 </body>
 </html>
