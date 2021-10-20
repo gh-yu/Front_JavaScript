@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Practice3_enroll</title>
+<title>회원가입</title>
 <style>
 	.input{width: 150px;}
 
@@ -26,7 +26,7 @@
 			var result = document.getElementById('result1');
 			
 			var check = checkUser(inputId);
-			if (check != 1) {
+			if (check != 1 && inputId.value != '') {
 				result.innerHTML = ' 사용가능한 아이디입니다.';
 				result.style.color = 'green';
 				result.value = 'success';
@@ -35,6 +35,10 @@
 				result.style.color = 'red';
 				result.value = 'fail';
 			}		
+			
+			if (inputId == '') {
+				result.innerHTML = '';
+			}
 		}
 		
 		function checkUser(inputId) {
@@ -60,6 +64,9 @@
 				result.value = 'fail';
 			}
 			
+			if (inputPwd == '' && inputPwd2 == '') {
+				result.innerHTML = '';
+			}
 		}
 		
 		function checkPwd2() {

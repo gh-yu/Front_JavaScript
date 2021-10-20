@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.area{border: 1px solid black; min-height: 100px;}
+</style>
+</head>
+<body>
+	<h1>window객체</h1>
+	<p>
+		window객체는 자바스크립트이 최상위 객체이며
+		BOM(Browser Object Model)과 DOM(Document Object Model)으로 나뉨
+	</p>
+	<h2>window객체</h2>
+	<p>브라우저 창에 대한 설정을 하는 객체</p>
+	<h3>open()</h3>
+	<button onclick="test1();">실행1</button>
+	<button onclick="test2();">실행2</button>
+	<script>
+		function test1(){
+//			window.open(); // 새로운 페이지 여는 메소드, 인자에 아무 것도 없으면 빈페이지 열림
+//			window.open('01_JavaScript.html'); // 인자에 파일 위치 넣어서 페이지 열기
+//			window.open('http://www.naver.com'); // url통해 페이지 열기
+			window.open('http://www.naver.com', '네이버', 'width=500, height=300'); // 설정값을 줘서 열 수 있음(a태그는 설정은 불가)
+			//				주소                           		 이름		 		 형태(specs)
+			window.open('http://www.google.com', '구글', 'width=300, height=500'); // 팝업 해제 설정 변경 후 두 창 열림
+		}
+		
+		function test2(){
+			var myPopup = window.open();
+			myPopup.document.write('<h2>나 팝업이야!</h2>')
+		}
+	</script>
+	
+	<h3>timer메소드</h3>
+	<h4>setTimeout()</h4>
+	<button onclick="test3();">실행확인</button>
+	<script>
+		function test3(){
+			var myWindow = window.open('', '', 'width=500, height=300');
+			myWindow.alert('3초 후에 이 페이지는 종료됩니다.');
+			
+			window.setTimeout(function(){
+				myWindow.close(); // 창 닫기
+			}, 3000); // 3초(=3000) 후에
+
+		}
+	</script>
+	
+	<h4>setInterval()</h4>
+	<button onclick="test4();">실행확인</button>
+	<div id="area4" style="border: 1px solid blue; width: 300px; height: 100px; font-size: 40px; color: red"></div>
+	<script>
+		function test4(){
+			var area = document.getElementById('area4');
+			
+			window.setInterval(function(){
+				var date = new Date();
+				
+				area.innerHTML = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+			}, 1000); // 1초(=1000)마다 새롭게 시작, 간격을 두고 실행
+		}
+	</script>
+	
+	<h4>clearInterval()</h4>
+	<button onclick="test5_1();">실행확인</button>
+	<div id="area5" style="border: 1px solid black; width: 300px; height: 100px; font-size: 40px; color: red"></div>
+	<script>
+		function test5_1(){
+			// area5 안에 3초부터 거꾸로 카운트(ex. 3, 2, 1)
+			// 0초가 되면 '종료!' 출력 후 멈추기
+			var area = document.getElementById('area5');
+			
+			var count = 4;
+			var count3 = window.setInterval(function(){
+				if (count > 0) {
+//					area.innerHTML = count;
+//					count = count - 1;
+//					count -= 1;
+//					count--;
+					area.innerHTML = 'countdown : ' + --count;
+				} else {
+//					area.innerHTML = '종료!';
+					area.innerHTML += '종료!';
+//					return; // return한다고 해서 setInterval()은 종료되지 않음
+					clearInterval(count3); // clearInterval(함수 담은 변수명)로 종료
+				}	
+			}, 1000);
+		}	
+	</script>
+	<script>
+		function test5(){
+			// area5 안에 3초부터 거꾸로 카운트(ex. 3, 2, 1)
+			// 0초가 되면 '종료!' 출력 후 멈추기
+			var area = document.getElementById('area5');
+			
+			var count = 3;
+			var count3 = window.setInterval(function(){
+				area.innerHTML = 'countdown : ' + count--;
+				if (count < 0) {
+					area.innerHTML += '종료!';
+					clearInterval(count3);
+				}	
+			}, 1000);
+		}	
+	</script>
+	
+	<h2>BOM객체</h2>
+	<h3>location객체</h3>
+	<p>브라우저 주소 표시줄과 관련된 객체</p>
+	<button onclick="test1();">실행확인</button>
+	<script>
+		function test1(){
+			console.log(location);
+/* 			for(var key in location){
+				console.log(key);
+				console.log(location[key]);
+			} */
+		}
+	</script>
+	<h4>location.href</h4>
+	<p>페아지 이동</p>
+	<button onclick="location.href='http://www.naver.com'">네이버로 이동</button>
+	<button onclick="location='http://www.naver.com'">네이버로 이동</button>
+	
+	<h4>reload()</h4>
+	<p>페이지를 새로고침하는 메소드</p>
+	<button onclick="location=location">새로고침</button> <!-- 새로고침하면서 페이지 맨 위로 올라감 -->
+	<button onclick="location.href=location.href">새로고침</button> <!-- 새로고침하면서 페이지 맨 위로 올라감 -->
+	<button onclick="location.reload()">새로고침</button> <!-- 새로고침하면서 제 자리에 -->
+	
+	<h4>assign()과 replace()</h4>
+	<p>
+		페이지 이동하는 메소드
+		replace()는 assign()과 다르게 history객체에 현재 resource를 남기지 않음
+	</p>
+	<button onclick="location.assign('http://www.google.com')">구글로 이동</button> <!-- 현재 페이지와 다음 페이지 사이에 원하는 페이지가 뜸(가장 최신), 페이지 이동 이전에 있었던 다음페이지들은 사라짐, 일반적인 형태 -->
+	<button onclick="location.replace('http://www.google.com')">구글로 이동</button> <!-- 현재 페이지를 대체함 , 다음 페이지 살아있음 -->
+	
+	<h3>navigator객체</h3>
+	<p>웹 페이지를 실행하고 있는 브라우저에 대한 정보를 갖고 있는 객체</p>
+	<button onclick="test2();">실행확인</button>
+	<script>
+		function test2() {
+			console.log(navigator); // 브라우저 환경 등 확인 위해 사용
+		}
+	</script>
+	
+	<h3>screen객체</h3>
+	<p>모니터의 속성을 가지는 객체</p>
+	<button onclick="test3();">실행확인</button>
+	<script>
+		function test3(){
+			console.log(screen) // 모니터 자체 크기, 모니터 비율이 상이하여 사진 깨지는 현상 방지하기 위해 모니터 크기 얻어옴
+		}
+	</script>
+	
+	<h3>history객체</h3>
+	<p>브라우저 방문 기록과 관련된 객체</p>
+	<button onclick="history.back();">back</button> <!-- 이전(뒤) 페이지로 이동 -->
+	<button onclick="history.forward();">forward</button> <!-- 다음(앞) 페이지로 이동 -->
+	
+	<br><br>
+	
+	<input type='number' id='num'>
+	<button onclick='test4();'>go</button>
+	<script>
+		function test4(){
+			var num = document.getElementById('num').value;
+			history.go(num); // history.go(숫자n) : 내가 지정한 숫자만큼 앞으로(n) 가거나 뒤로(-n) 페이지 이동
+		}
+	</script>
+	
+	<br><br>
+	
+	<button onclick="history.go(-1);">go back</button> <!-- go()를 이용한 back메소드 구현 -->
+	<button onclick="history.go(1);">go forward</button> <!-- go()를 이용한 forward메소드 구현 -->
+	
+	<h2>DOM</h2> <!-- DOM내의  document를 통해 html문서 내의 태그들을 하나하나 객체화(실존화)시켜서 자바스크립트에서 사용, 태그를 객체화한 것:node -->
+	<h3>텍스트 노드가 있는 노드 생성</h3>
+	<div id="area1" class="area"></div>
+	<button onclick="test5();">실행확인</button>
+	<script>
+		function test5(){
+			var area = document.getElementById('area1');
+			var nodeH3 = document.createElement('h3');
+			var textNodeHello = document.createTextNode('안녕');
+			
+			nodeH3.appendChild(textNodeHello); // h3태그 안에 textNodeHello를 추가 -> <h3>안녕</h3>
+			area.appendChild(nodeH3); // div안에 nodeH3 추가 -> <div><h3>안녕</h3></div>
+		}
+	</script>
+	
+	<h3>텍스트 노드가 없는 노드 생성</h3>
+	<div id="area2" class="area"></div>	
+	<button onclick="test6();">실행확인</button>
+	<script>
+		function test6(){
+			var area = document.getElementById('area2');
+			
+			var nodeImg = document.createElement('img'); // <img>
+			nodeImg.src = 'https://www.telegraph.co.uk/content/dam/Pets/spark/royal-canin/happy-puppy.jpg?imwidth=1240';
+			nodeImg.height = '100';
+			nodeImg.width = '150';
+			nodeImg.myProperty = '123'; // 존재하지 않는 속성이라 img태그 안에 추가되지 않음
+			nodeImg.setAttribute('myProperty', '456'); // 존재하지 않는 속성을 강제로 집어넣을 수 잇음
+			// <img src="~" height="100" width="150" myProperty="456">
+			
+			area.appendChild(nodeImg);
+		}
+	</script>
+	
+	<h3>innerHTML</h3>
+	<button onclick="test7();">실행확인</button>
+	<table border="1" id="board">
+		<tr>
+			<th>글번호</th>
+			<th>글제목</th>
+			<th>작성자</th>
+			<th>조회수</th>
+			<th>작성일자</th>
+		</tr>	
+	</table>
+	<script>
+		function test7(){
+			var board = document.getElementById('board');
+			
+			var num = 1;
+			var title = '제목';
+			var writer = '작성자';
+			var count = 0;
+			var date = new Date();
+			
+			board.innerHTML += "<tr><td>" + num + "</td>"
+							   + "<td>" + title + "</td>"
+							   + "<td>" + writer + "</td>"
+							   + "<td>" + count + "</td>"
+							   + "<td>" + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "</td></tr>";
+								
+//			var area = document.getElementById('area2');
+//			area.innerHTML = "<b>" + title + "</b><br>"; // 태그로 인식하여 태그로 추가됨
+//			area.innerText = "<b>" + title + "</b><br>"; // 태그로 추가되는 것이 아니라 텍스트로 추가됨
+		}
+	</script>
+
+	<h3>스타일 지정</h3>
+	<button onclick="test8();">실행확인</button>
+	<div id="area3" class="area"></div>
+	<script>
+		function test8(){
+			var area = document.getElementById('area3');
+			area.style.backgroundColor = 'black';
+			area.style.borderRadius = '100px';
+			area.style.transition = 'all 2s'; // 위 사항 변경되는데 2초 걸리게
+		}
+	</script>
+	
+	<h3>노드 삭제</h3>
+	<button onclick="test9();">실행확인</button>
+	<div id="area6" class="area"></div>
+	<script>
+		function test9(){
+			var area = document.getElementById('area6');
+			area.remove(); // area6 삭제됨
+		}
+	</script>
+	
+</body>
+</html>
