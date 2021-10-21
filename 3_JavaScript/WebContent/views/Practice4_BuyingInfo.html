@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	input{width: 200px;}
+	div{border: 1px solid black; width: 400px; height: 150px;}
+</style>
+</head>
+<body>
+	<h2>Practice4</h2>
+	<fieldset>
+		<legend>구매 정보</legend>
+		<ul>
+			<li>구매자 : <input type="text" class="inform" name="buyer" placeholder="구매자의 이름을 입력하세요"></li>
+			<li>상품명 : <input type="text" class="inform" name="proName" placeholder="구매 상품 명을 입력하세요"></li>
+			<li>가격 : <input type="text" class="inform" name="price" placeholder="구매 가격을 입력하세요"></li>
+			<li>구매 수량 : <input type="number" class="inform" name="amount" min="10" max="100" placeholder="최소10" step="10"></li>
+			<li>납품 등급 : <input type="range" class="inform" name="grade" min="1" max="9" step="2"></li>
+			<li>기타 사항 : <textarea name="etc" class="inform" rows="6" cols="30"></textarea></li>
+		</ul>
+	</fieldset>
+	<br>
+	<button onclick="printForm()">입력 값 확인하기</button>
+	<br><br>
+	<div id="area"></div>
+	<script>
+		function printForm(){
+			var inform = document.getElementsByClassName('inform');
+			var araa = document.getElementById('area');
+			
+			area.innerHTML = '구매자 명 : ' + inform[0].value + '님<br>';
+			area.innerHTML += '상품 명 : ' + inform[1].value + '<br>';
+			area.innerHTML += '가격 : ' + inform[2].value + '만원<br>';
+			area.innerHTML += '구매 수량 : ' + inform[3].value + '개<br>';
+			area.innerHTML += '납품 등급 : ' + inform[4].value + '등급<br>';
+			area.innerHTML += '기타사항 : ' + inform[5].value;
+		}
+	</script>
+</body>
+</html>
