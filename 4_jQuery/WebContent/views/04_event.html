@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<style>
+	.test{
+		width: 150px; height: 50px; border: 1px solid black; text-align: center;
+		display: table-cell; vertical-align: middle;
+	}
+	
+	.outer{width: 100px; height: 50px; background: powderblue; padding:30px;}
+	.inner{width: 100px; height: 50px; background: white;}
+	
+	.reverse{background: black; color: white;}
+</style>
+</head>
+<body>
+	<h1>이벤트</h1>
+	<h2>이벤트 관련 속성</h2>
+	<p>이벤트 핸들러의 매개인자로 event객체 전달, 인라인에서는 다른 키워드 불가</p>
+	<button onclick="test1(event);">실행확인</button> 
+	<!-- event객체 넘길시 인자를 event로만 넘겨야 함, 다른 키워드는 인지X -->
+	<script>
+		function test1(e){ // event객체를 받아주는 매개변수명은 상관 없음
+			console.log(e);  // 이벤트에 대한 정보 담겨있는 객체 반환
+			console.log(e.target); // e.target : 이벤트가 일어난 곳에 대한 정보 
+			// event는 객체이기 때문에 .으로 접근 event객체 안의 target 반환 
+		}
+	</script>
+	
+	<h2>이벤트 연결 종류</h2>
+	<h3>on()와 ofF()</h3>
+	<p>
+		on() : 현재 존재하는 문서 객체에만 이벤트 연결<br>
+		off() : on()로 연결된 이벤트 제거
+	</p>
+	<div id="onOff" class="test">기본 상태</div>
+	<script>
+		$(function(){
+//			$('#onOff').click(function(){
+//				alert('div를 클릭했습니다');
+//			});
+
+			// #onOff선택자로 선택된 요소에 이벤트 연결(.on())
+			$('#onOff').on('click',function(){ // .on('이벤트명', 실행할 함수)
+				alert('div를 클릭했습니다');
+			});
+			
+			$('#onOff').on({'mouseenter':function(){
+				$(this).css({'background':'beige', 'cursor':'pointer'}).text('마우스 올라감');
+			}, 'mouseout':function(){
+				$(this).css('background', 'powderblue').text('마우스 내려감');
+			}, 'click':function(){
+				// mouseenter, mouseout 이벤트 제거
+				$(this).css('background', 'white').text('기본 값').off('mouseenter').off('mouseout');
+			}});
+		});
+	</script>
+	
+	<h3>one()</h3>
+	<p>이벤트를 한 번만 연결할 때 사용</p>
+	<div id="eventOne" class="test">기본 상태</div>
+	<script>
+		$('#eventOne').one('click', function(){
+			alert('처음이자 마지막 이벤트 발생');
+		});
+	</script>
+	
+	<h2>이벤트 종류</h2>
+	<h3>마우스 이벤트</h3>
+	<h4>mouseover/mouseout(), mouseenter/mouseleave()</h4>
+	<p>
+		mouseover/mouseout() : 자식요소 접근 시에도 이벤트 발생 (버블링 적용 -> 자식요소에도 이벤트 적용)
+		mouseenter/mouseleave() : 자식요소 접근 시 이벤트 발생하지 않음(버블링 적용X -> 자식요소에 이벤트 적용x)
+	</p>
+	<div class="outer" id="mouseEvent1">
+		<div class="inner"></div>
+	</div>
+	<br>
+	<div class="outer" id="mouseEvent2">
+		<div class="inner"></div>
+	</div>	
+	<script>
+		// 자식요소 접근 시에도 이벤트 발생 (버블링 적용 -> 자식요소에도 이벤트 적용)
+		$('#mouseEvent1').mouseover(function(){
+			console.log($(this).attr('id') + ' over!')
+		});
+		$('#mouseEvent1').mouseout(function(){
+			console.log($(this).attr('id') + ' out!')
+		});
+		// 자식요소 접근 시 이벤트 발생하지 않음(버블링 적용X -> 자식요소에 이벤트 적용x)
+		$('#mouseEvent2').mouseenter(function(){
+			console.log($(this).attr('id') + ' enter!')
+		});		
+		$('#mouseEvent2').mouseleave(function(){
+			console.log($(this).attr('id') + ' leave!')
+		});				
+	</script>
+	
+	<h4>hover()</h4>
+	<p>mouseenter()(인자 앞)와 mouseleave()(인자 뒤)를 동시에 사용하는 효과</p>
+	<div id="hoverEvent" class="test">기본 상태</div>
+	<script>
+		// hover(인자1, 인자2) : 인자1에는 mouseenter()시 실행할 함수, 인자2에는 mouseleave()시 실행할 함수
+		$('#hoverEvent').hover(function(){  
+			console.log('오잉?'); // 마우스 들어갈때 적용
+//			$(this).addClass('reverse');
+			$(this).toggleClass('reverse');
+		}, function(){
+			console.log('에잉?') // 마우스 떠날때 적용
+			$(this).toggleClass('reverse');
+			// toggleClass() : 선택된 요소에 Class가 있으면 삭제하고 없으면 추가
+		});
+	</script>
+	
+	<h3>키보드 이벤트</h3>
+	<h4>keydown(), keypress(), keyup()</h4>
+	<textarea cols="40" rows='5' id="keyEvent"></textarea>
+	<script>
+		$('#keyEvent').keydown(function(e){ // 숫자, 영문, 한글, tab, shift와 같은 단축키
+			console.log('keydown : ' + e.key);			
+		});
+		$('#keyEvent').keypress(function(e){ // Enter인식, 숫자, 영문 인식/ 한글, shift, tab 등 인식x
+			console.log('keypress : ' + e.key);			
+		});
+		$('#keyEvent').keyup(function(e){  // 숫자, 영문, 한글/ tab문자 인식x
+			console.log('keyup : ' + e.key);			
+		});
+		// 각 이벤트마다 받아주는 문자가 다름
+		// 키보드 계속 누르고 있으면 keyup은 안 나옴, 키보드 떼면 keyup이벤트 발생
+	</script>
+	
+	<h4>동적으로 글자수 세기</h4>
+	<span id="counter">0</span><span>/150</span><br>
+	<textarea id="textTest" cols="70" rows="5"></textarea>
+	<script>
+		// tab, enter, 띄어쓰기 다 인식
+		// 1. 150넘어가면 글자수 count하는게 빨간색으로 
+		// 2. 넘어가면 글 못 쓰게
+			
+		$('#textTest').keydown(function(e){
+			var count = $('#counter').text();
+
+			if (e.key != 'Backspace') {
+				count++;
+			} else {
+				count--;
+			}
+				
+			if (count <= 150) {
+				$('#counter').css('color', 'black');
+			} else if (count > 150) {
+				$('#counter').css('color', 'red');
+				$('#textTest').attr('maxlength', '150');
+				return;
+			}
+			
+			if (count <= 0) {
+				count = 0; 
+			} 
+			
+			$('#counter').text(count);
+			
+			
+		});
+	</script>
+	
+	
+</body>
+</html>

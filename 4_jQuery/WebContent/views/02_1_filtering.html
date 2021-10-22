@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<h1>객체 탐색</h1>
+	<h2>필터링 메소드</h2>
+	<h4 class="test">test-a</h4>
+	<h4 class="test">test-b</h4>
+	<h4 class="test">test-c</h4>
+	<h4 class="test">test-d</h4>
+	<h4>test-e</h4>
+	<h4 class="test">test-f</h4>
+	<script>
+		$(function(){
+			// 선택자 이용
+//			$('h4:even').css({'background':'tomato', 'color':'white'});
+			
+			// filter()이용
+			$('h4').filter(':even').css({'background':'tomato', 'color':'white'}); // even 짝수번째 
+			$('h4').filter(':odd').css({'background':'yellowgreen', 'color':'white'}); // odd 홀수번째 
+			console.log($('h4').first()); // jquery에서는 선택된 요소의 객체들이 반환됨(자바스크립트에서는 태그가 반환됨)
+			console.log($('h4').first().text()); // test-a 
+			// text() : 태그 안에 들어잇는 내용 가져옴		
+		});
+	</script>
+	<script>
+
+
+	var d = document.getElementsByTagName('h4');
+	console.log(d);
+	</script>
+</body>
+</html>
