@@ -139,16 +139,53 @@
 		// tab, enter, 띄어쓰기 다 인식
 		// 1. 150넘어가면 글자수 count하는게 빨간색으로 
 		// 2. 넘어가면 글 못 쓰게
+ 		$('#textTest').keyup(function(){ // keydown이 아닌 keyup으로
+			var input = $(this).val()  // this로 가져올 수 있음
+			var inputLength = input.length;
 			
-		$('#textTest').keydown(function(e){
+			$('#counter').html("<b>" + inputLength + "<b>"); // b태그 집어넣기 위해 html사용
+//			$('#counter').text(count); // text만 들어간다면 text()사용하면 됨
+			
+			if (inputLength >= 150) {
+				$('#counter').css('color', 'red');
+ 				var piece = input.substr(0, 150); // 150이 넘어가면 150까지로 자름
+				$(this).val(piece);
+			} else {
+				$('#counter').css('color', 'black');
+			}
+		});
+		
+/* 		$('#textTest').keyup(function(){ // 요구사항과 오차가 있음
+//			var count = $('#textTest').val().length;
+			var input = $(this).val() 
+			var inputLength = input.length;
+			
+			if (inputLength >= 150) {
+				$('#counter').css('color', 'red');
+				$(this).attr('maxlength', '150');
+			} else if (inputLength < 150){
+				$('#counter').css('color', 'black');
+			}
+			$('#counter').html("<b>" + inputLength + "<b>");
+		}); */
+		
+		
+		// keydown 이벤트로 하면 한글키 지울때 처음에 +1이 되는 현상 (한글키 다음 Backspace를 누르면 Process로 인식)
+/*		var previousKey = null;
+		$('#textTest').keydown(function(e){ // keydown이 아니라 keyup이벤트 적용 필요
 			var count = $('#counter').text();
-
+					
 			if (e.key != 'Backspace') {
 				count++;
+				previousKey = e.key;
 			} else {
 				count--;
+				if (previousKey == 'Process') { // 한글키를 누르고 Backspace를 누르면 Process로 인식됨
+					count -= 2;
+					previousKey = e.key;
+				}
 			}
-				
+					
 			if (count <= 150) {
 				$('#counter').css('color', 'black');
 			} else if (count > 150) {
@@ -156,17 +193,13 @@
 				$('#textTest').attr('maxlength', '150');
 				return;
 			}
-			
+					
 			if (count <= 0) {
 				count = 0; 
 			} 
-			
+					
 			$('#counter').text(count);
-			
-			
-		});
+		}); */
 	</script>
-	
-	
 </body>
 </html>

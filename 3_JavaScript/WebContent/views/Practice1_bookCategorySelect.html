@@ -43,7 +43,7 @@
 			var selAll = document.getElementById('selAll');
 			var category = document.getElementsByName('category');
 				
-			if (selAll.checked == true) { // if (selAll.checked / true 안 적어줘도 됨
+			if (selAll.checked == true) { // if (selAll.checked)도 가능 / true 안 적어줘도 됨
 				for(var i = 0; i < category.length; i++) {
 					category[i].checked = true;
 				} 
@@ -54,7 +54,7 @@
 			}
 		}
 		
-		function checkOne(){
+ 		function checkOne(){
 			var selAll = document.getElementById('selAll');
 			var category = document.getElementsByName('category');
 			
@@ -65,13 +65,30 @@
 				}
 			}
 			
-			if (checkAll == true) {
+			if (checkAll) { // checkAll == true와 같은 의미
 				selAll.checked = true;
 			} else {
 				selAll.checked = false;
 			}
-			
 		}
+		
+/* 		function checkOne(){ // checkOne()의  ver2
+			var selAll = document.getElementById('selAll');
+			var category = document.getElementsByName('category');
+			
+			var count = 0;
+			for (var i in category) {
+				if (category[i].checked) {
+					count++;
+				}
+			}
+			
+			if (count == 12) {
+				selAll.checked = true;
+			} else {
+				selAll.checked = false;
+			}
+		} */
 		
 		function selectCategory(){
 			var category = document.getElementsByName('category');

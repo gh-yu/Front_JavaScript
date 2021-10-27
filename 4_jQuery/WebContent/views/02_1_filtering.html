@@ -23,15 +23,18 @@
 			$('h4').filter(':even').css({'background':'tomato', 'color':'white'}); // even 짝수번째 
 			$('h4').filter(':odd').css({'background':'yellowgreen', 'color':'white'}); // odd 홀수번째 
 			console.log($('h4').first()); // jquery에서는 선택된 요소의 객체들이 반환됨(자바스크립트에서는 태그가 반환됨)
-			console.log($('h4').first().text()); // test-a 
-			// text() : 태그 안에 들어잇는 내용 가져옴		
+			// first() : 해당 선택자로 선택된 요소 중 첫 번째 요소
+			console.log($('h4').first().text()); // test-a -> h4태그 안의 내용 반환됨
+			// text() : 태그 안의 값 확인하거나 수정할 때 사용(태그 안에 들어잇는 내용 가져옴)
+			// input태그나 textarea태그 같은 사용자에게 입력 받는 태그같은 경우 val() 사용
+			$('h4').first().text($('h4').first().text() + " : 처음 요소");
+			$('h4').last().css('font-size', '1.5em');
+			$('h4').eq(3).text($('h4').eq(3).text() + " : eq()메소드로 필터링됨");
+			$('h4').not('.test').css({'background':'yellow', 'color':'black'});
+			// 필터 선택자 이용한다면?
+			//$('h4:not(.test)').css({'background':'yellow', 'color':'black'});
+			//$('h4:contains("test-e")').css({'background':'yellow', 'color':'black'});
 		});
-	</script>
-	<script>
-
-
-	var d = document.getElementsByTagName('h4');
-	console.log(d);
 	</script>
 </body>
 </html>
