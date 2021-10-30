@@ -2,9 +2,192 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입_정규식</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<style>
+	table{border: 2px solid black; /* border-top: 1px; */ height: 400px; width: 600px;}
+	div{border: 1px solid black; height: 80px; width: 598px; text-align: center; background: beige;} 
+	td{font-size: small;}
+	tbody th{background: pink; width: 120px;}
+	div
+</style>
+<script>
+	// script태그 head영역에 쓸때 $(function(){});로 페이지 로드될때 실행하게 하지 않으면 작동X 
+	// body영역에 쓸때는  $(function(){});로 감싸주지 않아도 작동함
+	$(function(){ 
+		//var checkName = false;
+		var checkName = 'no'; // input태그의 required속성이  먹히게 하기 위해 임의로 'no'라고 줌
+		var checkId = 'no';
+		var checkPwd = 'no';
+		
+		$('#name').blur(function(){
+			//regName = /[ㄱ-ㅎㅏ-ㅣ가-힣]{2}/; // | 안 붙여도 됨
+			regName = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2}/; // |(shift + \)는 OR을 의미 
+			//console.log(regName.test($(this).val()));
+			
+			var input = $(this).val(); // { // trim()메소드 추가?
+			var inputLength = input.length;
+			if (input == '' || inputLength == 0) {
+			//if ($(this).val() == '' || name.valuelength == 0) 
+				$('#nameCheck').text('');
+			} else if (!regName.test($(this).val())) {
+				//$('#nameInfo').css({'color':'red', 'font-weight':'bold', 'font-size':'medium'});
+				//$(this).focus().css('background', 'red');
+				$('#nameCheck').text('잘못 입력하셨습니다.').css({'color':'red', 'font-weight':'bold'});
+				$(this).focus();
+				checkName = false;
+			} else {
+				//$('#nameInfo').css({'color':'', 'font-weight':'', 'font-size':''});
+				//$(this).css('background', '');
+				$('#nameCheck').text(null); // null 대신 '' 넣어도 됨
+				checkName = true;
+			}
+		});
+		
+		$('#userId').blur(function(){
+			regId = /^[A-Za-z]{1}[0-9A-Za-z]{7,11}$/;
+			// ^ : 시작을 의미([] 안에서는 반대를 의미)
+			// $ : 문자열의 끝을 의미
+			// [7,11] : 7~11자 붙여서 써야함(띄어쓰기x)
+			
+			if ($(this).val() == '' || userId.valuelength == 0) {
+				$('#idCheck').text('');
+			} else if (!regId.test($(this).val())) {
+				$('#idCheck').text('잘못 입력하셨습니다.').css({'color':'red', 'font-weight':'bold'});
+				$(this).focus();
+				checkId = false;
+			} else {
+				$('#idCheck').text('');
+				checkId = true;	
+			}
+		});
+		
+		$('#userPwd').blur(function(){
+			regPwd = /^[A-Za-z]{1}[0-9A-Za-z!*$]{7,11}$/;
+			
+			if ($(this).val() == '' || userPwd.valuelength == 0) {
+				$('#pwdCheck').text('');
+			} else if (!regPwd.test($(this).val())) {
+				$('#pwdCheck').text('잘못 입력하셨습니다.').css({'color':'red', 'font-weight':'bold'});
+				$(this).focus();
+				checkPwd = false;
+			} else {
+				$('#pwdCheck').text('');
+				checkPwd = true;
+			}
+			
+			if (userPwd2.value == '' || userPwd2.valuelength == 0) {
+				$('#pwdCheck2').text('');
+			} else if ($('#userPwd2').val() != $(this).val()) {
+				$('#pwdCheck2').text('비밀번호가 일치하지 않습니다.').css({'color':'red', 'font-weight':'bold'});
+			} else {
+				$('#pwdCheck2').text('');
+			}
+		});
+		
+		$('#userPwd2').blur(function(){
+			if ($('#userPwd').val() != $(this).val()) {
+				$('#pwdCheck2').text('비밀번호가 일치하지 않습니다.').css({'color':'red', 'font-weight':'bold'});
+			} else {
+				$('#pwdCheck2').text('');
+			}
+		});
+		
+ 		$('input[type=submit]').click(function(){
+			
+ 			// input태그 required속성의 알림으로 대체하(만약 정규표현식 테스트 없다면 공백도 값으로 인식하기 때문에 따로 로직 처리해줘야 함)
+ 		 	/* if ($('#name').val().trim() == '' || name.valuelength == 0) { 
+ 		 		alert('이름을 입력해주세요.');
+				$('#name').focus();
+ 		 	} else if ($('#userId').val() == '') {
+ 		 		alert('아이디를 입력해주세요.');
+				$('#userId').focus();
+ 		 	} else if ($('#userPwd').val() == '') {
+ 		 		alert('비밀번호를 입력해주세요.');
+				$('#userPwd').focus();
+ 		 	} else if ($('#userPwd2').val() == '') {
+ 		 		alert('비밀번호 확인을 입력해주세요.');
+				$('#userPwd2').focus();
+ 		 	} else if ($('#email').val() == '') {	
+ 		 		alert('이메일을 입력해주세요.');
+				$('#email').focus();
+ 			} else */ if(!checkName) {
+				alert('이름을 다시 확인해주세요.');
+				$('#name').focus();
+			} else if(!checkId) {
+				alert('아이디를 다시 확인해주세요.');
+				$('#userId').focus();
+			} else if(!checkPwd) {
+				alert('비밀번호를 다시 확인해주세요.');
+				$('#userPwd').focus();
+			} else if ($('#userPwd').val() != $('#userPwd2').val()) {
+				alert('비밀번호가 일치하지 않습니다.');
+				$('#userPwd2').focus();
+			} else {	
+				//alert($('#name').val() + '님 회원가입이 완료되었습니다.');
+				return true; // true 리턴시 form의 action에 설정한 페이지로 데이터 들고 이동할 것임
+			}
+			return false; // 이렇게 false값 리턴하면 제출되지 않고 현재 페이지에서 이동x
+		});
+		
+	});
+</script>
 </head>
 <body>
-
+	<h2>입력 양식 이벤트</h2>
+	<form>
+		<div>
+			<h2>회원가입</h2>
+		</div>
+		<table>
+	<!-- 	<thead> 
+				<tr>
+					<th colspan="2"><h2>회원가입</h2></th>
+				</tr>
+			</thead> -->
+			<tbody>
+				<tr>
+					<th rowspan="2" class="label">이름</th>
+					<td><input type="text" id="name" required> <span id="nameCheck"></span></td>
+				</tr>
+				<tr>
+					<td><span id="nameInfo" class="info">이름은 한글로 된 2글자 이상으로 입력하셔야 합니다.</span></td>
+				</tr>
+				<tr>
+					<th rowspan="2" class="label">아이디</th>
+					<td><input type="text" id="userId" required> <span id="idCheck"></span></td>				
+				</tr>
+				<tr>
+					<td><span>8~12자로 영어와 숫자만 가능합니다.(영어로 시작)</span></td>
+				</tr>				
+				<tr>
+					<th rowspan="2"class="label">비밀번호</th>
+					<td><input type="password" id="userPwd" required> <span id="pwdCheck"></span></td>				
+				</tr>
+				<tr>
+					<td><span>8~12자로 영어와 숫자, !*$만 가능합니다.(영어로 시작)</span></td>
+				</tr>
+				<tr>
+					<th rowspan="2"class="label">비밀번호 확인</th>
+					<td><input type="password" id="userPwd2" required> <span id="pwdCheck2"></span></td>				
+				</tr>
+				<tr>
+					<td><span class="info">비밀번호와 일치하게 써주세요.</span></td>
+				</tr>
+				<tr>
+					<th class="label">이메일</th>
+					<td><input type="email" id="email" required></td>				
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="2">
+						<input type="reset" value="초기화"> 
+						<input type="submit" value="제출"> <!-- onclick="return enroll();" -->
+					</th>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
 </body>
 </html>

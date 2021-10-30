@@ -2,9 +2,105 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이미지 확대</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+<style>
+	td.small {
+		text-align:center;
+		cursor:pointer;
+		width:150px;
+	}
+	td.small a img {
+		border:none;
+		margin:10px;
+		width:60px;
+		height:60px;
+		visibility: 
+	}
+	td.small p{font-weight:bold;}
+	.large {width:500px; text-align:center; /* display: none; */} /* display: none; 또는 태그에 hidden속성 추가하면 사라짐 */
+	.small:hover {background-color:powderblue;}
+</style>
 </head>
 <body>
-
+	<h1>이미지 확대</h1>
+	<!-- 
+		작은 이미지에 마우스 오버 시 오른 쪽에 큰 이미지로 서서히 보이게 하세요
+		또 작은 이미지를 클릭하면 해당 이미지를 전체 화면에서 볼 수 있도록 하세요
+	-->
+	<table>
+		<tr>
+			<td class="small" id="td1">
+				<a href="../images/samsung1.png"><img id="img1" src="../images/samsung1.png"/></a>
+				<p>삼성 21x<br>&#8361;500</p>
+			</td>
+			<td rowspan='4' id="target">
+ 				<img src="../images/samsung1.png" class="large" id="imgCopy">
+<!-- 			<img src="../images/samsung2.png" class="large" id="img2">
+				<img src="../images/canon1.png" class="large" id="img3">
+				<img src="../images/nikon1.png" class="large" id="img4"> -->
+			</td>
+		</tr>
+		<tr>
+			<td class="small" id="td2">
+				<a href="../images/samsung2.png"><img  id="img2" src="../images/samsung2.png"/></a>
+				<p>삼성 NX mini <br> &#8361;350</p>
+			</td>
+		</tr>
+		<tr>
+			<td  class="small" id="td3">
+				<a href="../images/canon1.png"><img id="img3" src="../images/canon1.png"/></a>
+				<p>캐논 SX510HS <br> &#8361;400</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="small" id="td4">
+				<a href="../images/nikon1.png"><img id="img4" src="../images/nikon1.png"/></a>
+				<p>니콘 FusHD <br> &#8361;200</p>
+			</td>
+		</tr>
+	</table>
+	<script>
+//		$('.small').hover(function(){
+//			$('#target>img').remove();
+//			$('#target').append($(this).find('img').clone());
+//			//$('.large').fadeIn(500);
+//		}, function(){
+//			//$('.large').fadeOut(500);
+//			$('#target>img').fadeOut(500);
+//		}); // fadeIn적용은 안됨, hidden속성을 가진 img태그 하나 더 만들어서 그걸 붙이고 fadeIn해도 될듯 
+		
+//		imgCopy.src = img2.src;
+//		console.log(imgCopy.src);
+		
+  		$('#td1').hover(function(){
+  			imgCopy.src = img1.src;
+ 			$('.large').fadeIn(700);
+		}, function(){
+			$('.large').fadeOut(700);
+		});
+ 		$('#td2').hover(function(){
+			imgCopy.src = img2.src;
+			$('.large').fadeIn(700);
+		}, function(){
+			$('.large').fadeOut(700);
+		});
+		
+		$('#td3').hover(function(){
+			imgCopy.src = img3.src;
+			$('.large').fadeIn(700);
+		}, function(){
+			$('.large').fadeOut(700);
+		});
+		
+		$('#td4').hover(function(){
+			imgCopy.src = img4.src;
+			$('.large').fadeIn(700);
+		}, function(){
+			$('.large').fadeOut(700);
+		});
+		
+</script>
 </body>
 </html>

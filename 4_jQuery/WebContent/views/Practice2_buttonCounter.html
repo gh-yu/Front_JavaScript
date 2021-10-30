@@ -2,9 +2,49 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>버튼 카운터</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<style>
+	.count-click{
+		width: 100px; height: 100px;
+		margin-right: 10px;
+		display: inline-block;
+		font-size: 30px;
+		background: rgb(200, 200, 0);
+	}
+</style>
+<script>
+	$(function(){ // head영역에 스크립트 쓸거면 페이지 로드될때 실행되게 하는 함수 써야함, body에다 쓰면 $(function(){}); 무필요
+		//var count = 0; // 전역변수로 두면 다른 버튼에도 영향을 줌
+		//var b = 0;
+		
+		$('.count-click').click(function(){
+			//b += 10;
+			//rgb = "rgb(200, 200, " + b + ")"; // 배경색 바꾸는 효과
+			
+			var count = Number($(this).text());
+			count++;
+			var opacityMinus = 10 - count; 
+			var opacity = '0.' + opacityMinus; // count가 올라갈 때마다 0.9 > 0.8 .. 줄어듬
+			console.log(opacity);
+			$(this).text(count).css('opacity', opacity);
+			if(count == 10) {
+				$(this).off('click');
+			}
+		});
+	});
+</script>
 </head>
 <body>
-
+	<h1>버튼 카운트</h1>
+	<!-- 
+		한 버튼 당 총 10번을 누를 수 있으며 한 번 누를 때마다 
+		버튼 숫자는 올라가면서 색은 옅어지게(투명해지게)하세요
+		(즉, 10번이 되면 배경은 완전히 투명해지게) 
+		이 때, 10번이 되면 해당 버튼의 이벤트는 없애세요
+	-->
+	<button id="btn1" class="count-click"> 0 </button>
+	<button id="btn2" class="count-click"> 0 </button>
+	<button id="btn3" class="count-click"> 0 </button>
 </body>
 </html>
